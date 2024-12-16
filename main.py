@@ -1,8 +1,9 @@
+import os
+import io
+import base64
 import streamlit as st
 from PIL import Image
 import openai
-import base64
-import io
 
 # Configure page layout
 st.set_page_config(layout="wide", page_title="Kalyan Jewellers AI Analyzer")
@@ -36,7 +37,9 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-client = openai.OpenAI(api_key='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')
+key = os.environ.get('OPENAI_API_KEY')
+
+client = openai.OpenAI(api_key=str(key)) 
 
 def encode_image(image_file):
     return base64.b64encode(image_file.getvalue()).decode('utf-8')
