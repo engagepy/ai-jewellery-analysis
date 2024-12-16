@@ -8,6 +8,6 @@
 
 > `pip install -r requirements.txt`
 
-> streamlit run main.py
+> `streamlit run main.py`
 
 > Amy jewellery image can be uploaded and the model will predict the jewellery type and related details
