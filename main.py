@@ -167,7 +167,7 @@ def check_password():
         """, unsafe_allow_html=True)
         
         st.markdown("---")
-        st.markdown("<div class='footer-gradient'>© 2024 Kalyan Jewellers - Trust of Generations - AI Research Wing</div>", unsafe_allow_html=True)
+        st.markdown("<div class='footer-gradient'>© 2024 Kalyan Jewellers - Trust of Generations - AI Research by <a href='https://m37labs.com' target='_blank'>M37Labs.com</a></div>", unsafe_allow_html=True)
         return False
     return True
 
