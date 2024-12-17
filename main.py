@@ -122,7 +122,13 @@ def init_styling():
     """, unsafe_allow_html=True)
 
 def check_password():
+    # Initialize session state
+    if "password" not in st.session_state:
+        st.session_state.password = ""
     if "password_correct" not in st.session_state:
+        st.session_state.password_correct = False
+
+    if not st.session_state.password_correct:
         st.markdown("<div class='title-gradient'>AI Jewellery Analyzer</div>", unsafe_allow_html=True)
         st.markdown("<div class='subtitle-gradient'>Revolutionizing Jewellery Analysis with Advanced AI</div>", unsafe_allow_html=True)
         
@@ -133,7 +139,7 @@ def check_password():
                 type="password", 
                 key="password",
                 on_change=lambda: st.session_state.update(
-                    password_correct=st.session_state["password"] == "1111"
+                    password_correct=st.session_state.get("password", "") == "1111"
                 )
             )
 
@@ -163,7 +169,7 @@ def check_password():
         st.markdown("---")
         st.markdown("<div class='footer-gradient'>© 2024 Kalyan Jewellers - Trust of Generations - AI Research Wing</div>", unsafe_allow_html=True)
         return False
-    return st.session_state["password_correct"]
+    return True
 
 def encode_image(image_file):
     return base64.b64encode(image_file.getvalue()).decode('utf-8')
