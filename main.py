@@ -5,6 +5,22 @@ import streamlit as st
 from PIL import Image
 import openai
 
+def check_password():
+    if "password_correct" not in st.session_state:
+        st.text_input(
+            "Enter passcode", 
+            type="password", 
+            key="password",
+            on_change=lambda: st.session_state.update(
+                password_correct=st.session_state["password"] == "1111"
+            )
+        )
+        return False
+    return st.session_state["password_correct"]
+
+if not check_password():
+    st.stop()
+
 # Configure page layout
 st.set_page_config(layout="wide", page_title="Kalyan Jewellers AI Analyzer")
 
