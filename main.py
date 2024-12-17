@@ -138,7 +138,7 @@ def main():
 
     # Footer
     st.markdown("---")
-    st.markdown("*© 2024 Kalyan Jewellers - Trust of Generations*")
+    st.markdown("*© 2024 Kalyan Jewellers - Trust of Generations - AI Research Wing*")
 
 if __name__ == "__main__":
     main()
