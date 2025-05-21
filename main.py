@@ -5,8 +5,10 @@ import streamlit as st
 from PIL import Image
 import openai
 
+
 def init_styling():
-    st.markdown("""
+    st.markdown(
+        """
         <style>
         .main {
             background-color: #0e1117;
@@ -119,7 +121,10 @@ def init_styling():
             border-radius: 4px;
         }
         </style>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
+
 
 def check_password():
     # Initialize session state
@@ -129,21 +134,28 @@ def check_password():
         st.session_state.password_correct = False
 
     if not st.session_state.password_correct:
-        st.markdown("<div class='title-gradient'>AI Jewellery Analyzer</div>", unsafe_allow_html=True)
-        st.markdown("<div class='subtitle-gradient'>Revolutionizing Jewellery Analysis with Advanced AI</div>", unsafe_allow_html=True)
-        
-        col1, col2, col3 = st.columns([1,2,1])
+        st.markdown(
+            "<div class='title-gradient'>AI Jewellery Analyzer</div>",
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            "<div class='subtitle-gradient'>Revolutionizing Jewellery Analysis with Advanced AI</div>",
+            unsafe_allow_html=True,
+        )
+
+        col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
             st.text_input(
-                "Enter passcode", 
-                type="password", 
+                "Enter passcode",
+                type="password",
                 key="password",
                 on_change=lambda: st.session_state.update(
                     password_correct=st.session_state.get("password", "") == "1111"
-                )
+                ),
             )
 
-        st.markdown("""
+        st.markdown(
+            """
             <div class='cards-scroll-container'>
                 <div class='card-container'>
                     <div class='card'>
@@ -164,19 +176,26 @@ def check_password():
                     </div>
                 </div>
             </div>
-        """, unsafe_allow_html=True)
-        
+        """,
+            unsafe_allow_html=True,
+        )
+
         st.markdown("---")
-        st.markdown("<div class='footer-gradient'>© 2024 Kalyan Jewellers - Trust of Generations - AI Research by <a href='https://m37labs.com' target='_blank'>M37Labs</a></div>", unsafe_allow_html=True)
+        st.markdown(
+            "<div class='footer-gradient'>© 2024 AI Research by <a href='https://m37labs.com' target='_blank'>M37Labs</a></div>",
+            unsafe_allow_html=True,
+        )
         return False
     return True
 
+
 def encode_image(image_file):
-    return base64.b64encode(image_file.getvalue()).decode('utf-8')
+    return base64.b64encode(image_file.getvalue()).decode("utf-8")
+
 
 def analyze_jewellery(image_file):
     base64_image = encode_image(image_file)
-    
+
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
@@ -207,71 +226,82 @@ def analyze_jewellery(image_file):
                 • Unique Selling Points
                 • Collection Placement
                 • Market Differentiation
-                • Competition Analysis"""
+                • Competition Analysis""",
             },
             {
                 "role": "user",
                 "content": [
                     {
                         "type": "text",
-                        "text": "Analyze this jewellery piece for Kalyan Jewellers inventory."
+                        "text": "Analyze this jewellery piece for Kalyan Jewellers inventory.",
                     },
                     {
                         "type": "image_url",
-                        "image_url": {
-                            "url": f"data:image/jpeg;base64,{base64_image}"
-                        }
-                    }
-                ]
-            }
+                        "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"},
+                    },
+                ],
+            },
         ],
-        max_tokens=500
+        max_tokens=500,
     )
 
     return response.choices[0].message.content
 
+
 def main():
-    col1, col2, col3 = st.columns([1,2,1])
+    col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.markdown("<div class='title-gradient'>AI Jewellery Analyzer</div>", unsafe_allow_html=True)
-        st.markdown("<div class='subtitle-gradient'>Transform Inventory Analysis</div>", unsafe_allow_html=True)
+        st.markdown(
+            "<div class='title-gradient'>AI Jewellery Analyzer</div>",
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            "<div class='subtitle-gradient'>Transform Inventory Analysis</div>",
+            unsafe_allow_html=True,
+        )
 
     left_col, right_col = st.columns(2)
 
     with left_col:
         st.markdown("### Image Input")
         tab1, tab2 = st.tabs(["📸 Camera", "📤 Upload"])
-        
+
         with tab1:
             camera_image = st.camera_input("Capture Jewellery")
             if camera_image:
                 image_file = camera_image
-                
+
         with tab2:
-            uploaded_file = st.file_uploader("Choose image", type=["jpg", "jpeg", "png"])
+            uploaded_file = st.file_uploader(
+                "Choose image", type=["jpg", "jpeg", "png"]
+            )
             if uploaded_file:
                 image_file = uploaded_file
 
-        if 'image_file' in locals():
+        if "image_file" in locals():
             image = Image.open(image_file)
             st.image(image, use_container_width=True)
 
     with right_col:
         st.markdown("### Analysis Results")
-        if 'image_file' in locals():
-            with st.spinner("🔍 Analyzing with Kalyan AI..."):
+        if "image_file" in locals():
+            with st.spinner("🔍 Analyzing with AI..."):
                 image_file.seek(0)
                 analysis = analyze_jewellery(image_file)
                 st.markdown(analysis)
 
     st.markdown("---")
-    st.markdown("<div class='footer-gradient'>© 2024 Kalyan Jewellers - Trust of Generations - AI Research Wing</div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='footer-gradient'>© 2024 AI Research Wing</div>",
+        unsafe_allow_html=True,
+    )
+
 
 # Initialize the app
-st.set_page_config(layout="wide", page_title="Kalyan Jewellers AI Analyzer")
+st.set_page_config(layout="wide", page_title="Jewellers AI Analyzer")
 init_styling()
 
-key = os.environ.get('OPENAI_API_KEY')
+key = os.environ.get("OPENAI_API_KEY")
 client = openai.OpenAI(api_key=str(key))
 
 if not check_password():
