@@ -1,7 +1,7 @@
 # AI Jewellery Analyser
 
 ## Overview
-This open source project uses OpenAI 4o API and Streamlit to analyze jewellery images, predicting the type and relevant details. Originally developed for a demo of the Kalyan Jewellers Jewellery Inventory Management System, this repository is now publicly available for community contributions.
+This open source project uses OpenAI 4o API and Streamlit to analyze jewellery images, predicting the type and relevant details. Originally developed for a demo of the Jewellery Inventory Management System, this repository is now publicly available for community contributions.
 
 ## Features
 - Image recognition for different jewellery types.
@@ -45,7 +45,7 @@ For any questions or suggestions, feel free to open an issue or contact the proj
 ## Acknowledgements
 - [OpenAI](https://openai.com) for the API.
 - [Streamlit](https://streamlit.io) for the web framework.
-- Kalyan Jewellers for the initial development support.
+<!-- - Kalyan Jewellers for the initial development support. -->
 - All contributors for their valuable input.
 
 ## Disclaimer
